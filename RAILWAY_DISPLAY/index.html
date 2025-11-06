@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Railway Platform Display System</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">Railway Platform Display</div>
+    <div class="clock" id="clock">--:--</div>
+  </header>
+
+  <main class="container">
+    <section class="controls">
+      <div class="control-row">
+        <button id="btn-add-train" class="btn primary icon-add">Add Train</button>
+        <button id="btn-seed" class="btn success icon-seed">Seed Sample Data</button>
+        <button id="btn-clear" class="btn danger icon-trash">Clear All</button>
+        <div class="spacer"></div>
+        <label class="inline">
+          <input type="checkbox" id="auto-advance" checked>
+          Auto-advance time
+        </label>
+        <label class="inline">
+          Speed
+          <select id="sim-speed">
+            <option value="1">1x</option>
+            <option value="2">2x</option>
+            <option value="5">5x</option>
+            <option value="10">10x</option>
+          </select>
+        </label>
+      </div>
+      <div class="control-row">
+        <label>
+          Filter by status
+          <select id="filter-status">
+            <option value="all">All</option>
+            <option value="ON_TIME">On Time</option>
+            <option value="DELAYED">Delayed</option>
+            <option value="BOARDING">Boarding</option>
+            <option value="DEPARTED">Departed</option>
+            <option value="ARRIVED">Arrived</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </label>
+        <label>
+          Platforms
+          <input id="num-platforms" type="number" min="1" max="20" value="6">
+        </label>
+      </div>
+    </section>
+
+    <section class="board" aria-live="polite">
+      <table class="display" id="display">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Train</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Platform</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="display-body">
+        </tbody>
+      </table>
+    </section>
+
+    <section class="platforms">
+      <h2>Platforms</h2>
+      <div class="platform-grid" id="platform-grid"></div>
+    </section>
+
+    <section class="announcements" aria-live="assertive">
+      <h2>Announcements</h2>
+      <ul id="announcements"></ul>
+    </section>
+  </main>
+
+  <dialog id="train-dialog">
+    <form id="train-form" method="dialog">
+      <h3 id="dialog-title">Add Train</h3>
+      <div class="form-grid">
+        <label>
+          Train No.
+          <input name="trainNo" type="text" required placeholder="12345" />
+        </label>
+        <label>
+          From
+          <input name="from" type="text" required placeholder="Origin" />
+        </label>
+        <label>
+          To
+          <input name="to" type="text" required placeholder="Destination" />
+        </label>
+        <label>
+          Arrives (HH:MM)
+          <input name="arrive" type="time" required />
+        </label>
+        <label>
+          Departs (HH:MM)
+          <input name="depart" type="time" required />
+        </label>
+        <label>
+          Platform (optional)
+          <input name="platform" type="number" min="1" />
+        </label>
+        <label>
+          Status
+          <select name="status">
+            <option value="ON_TIME">On Time</option>
+            <option value="DELAYED">Delayed</option>
+            <option value="BOARDING">Boarding</option>
+            <option value="DEPARTED">Departed</option>
+            <option value="ARRIVED">Arrived</option>
+            <option value="CANCELLED">Cancelled</option>
+          </select>
+        </label>
+        <label>
+          Delay (minutes)
+          <input name="delay" type="number" min="0" value="0" />
+        </label>
+      </div>
+      <menu class="dialog-actions">
+        <button value="cancel" class="btn">Cancel</button>
+        <button id="train-save" value="save" class="btn primary">Save</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+  
+</body>
+</html>
+
+
